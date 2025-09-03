@@ -21,15 +21,13 @@ public class WhatsappRepository {
     }
 
     public Group createGroup(List<User> users) {
-        Group group;
+        Group group = new Group();
         if(users.size() == 2) {
-            group = new Group();
             group.name = users.get(1).name;
             group.numberOfParticipants = 2;
             adminMap.put(group, users.get(0));
         } else {
             customGroupCount++;
-            group = new Group();
             group.name = "Group " + customGroupCount;
             group.numberOfParticipants = users.size();
             adminMap.put(group, users.get(0));
@@ -54,6 +52,7 @@ public class WhatsappRepository {
         senderMap.put(message, sender);
         groupMessageMap.putIfAbsent(group, new ArrayList<>());
         groupMessageMap.get(group).add(message);
+
         return groupMessageMap.get(group).size();
     }
 
@@ -110,3 +109,4 @@ public class WhatsappRepository {
         return messages.get(K-1).content;
     }
 }
+
